@@ -1,0 +1,1 @@
+/* INSERT INTO persona (id, nombre, apellido) VALUES (100, 'Yuuko', 'Aioi');  */
