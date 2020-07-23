@@ -1,0 +1,31 @@
+<div class="row">
+
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="txtBuscador">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar()">Search</button>
+  
+        <!--
+<form class="form-inline my-2 my-lg-0"></form>
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="txtBuscador">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscar()">Search</button>
+        </form>    
+
+    <div class="col">
+        <input type="text" class="form control" placeholder="buscar" [(ngModel)]="txtBuscador">
+    </div>
+    <div class="col">
+        <button class="btn btn-success" (click)="buscar()">Buscar.</button>
+    </div>
+        -->
+</div>
+
+<div class="card-columns">
+    <div class="card" *ngFor="let u of usuarios">
+        <img class="card-img-top" [src]="u.avatar" alt="Avatar">
+        <div class="card-body">
+            <h5 class="card-title">{{u.first_name}} {{u.last_name}}</h5>
+            <p class="card-text">{{u.email}}</p>
+            <p class="card-text"><small class="text-muted">Last updated: {{u.birth_date | date : 'dd-MM-yyyy'}}</small></p>
+            <a class="btn btn-primary" (click)="verUsuario(u.id)">Más información.</a>
+        </div>
+    </div>
+</div>
