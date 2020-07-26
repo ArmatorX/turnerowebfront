@@ -1,0 +1,68 @@
+<h1>Crear Nuevo Turno</h1>
+<hr>
+<div class="row">
+    <div class="col">
+        Nombre y Apellido:
+    </div>
+    <div class="col">
+        <input type="text" class="form control" placeholder="Texto" [(ngModel)]="txtNombreApellido">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        Fecha: 
+    </div>
+    <div class="col">
+        <input type="date" class="form control" placeholder="buscar" [(ngModel)]="txtFecha">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        Hora: 
+    </div>
+    <div class="col"> 
+        <select class="custom-select" style='width:100px' [(ngModel)]="txtHora">
+            <option>09</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+            <option>17</option>
+        </select>
+        : 
+        <select class="custom-select" style='width:100px' [(ngModel)]="txtMinutos">
+            <option>00</option>
+            <option>15</option>
+            <option>30</option>
+            <option>45</option>
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        Categoria: 
+    </div>
+    <div class="col"> 
+        <select class="custom-select" [(ngModel)]="txtCategoria">
+            <option>Categoria 1</option>
+            <option>Categoria 2</option>
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <button class="btn btn-success" (click)="crearTurno()">
+            Crear
+        </button> 
+        <button class="btn btn-danger" (click)="limpiarFiltros()">
+            Limpiar
+        </button>
+    </div>
+</div>

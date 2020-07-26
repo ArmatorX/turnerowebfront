@@ -1,41 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+import { TurnoService } from './services/turno.service';
+import { UrlService } from './services/url.service';
+import { DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContactoComponent } from './components/contacto/contacto.component';
-import { EmpresaComponent } from './components/empresa/empresa.component';
-import { ProductoComponent } from './components/producto/producto.component';
 import { HomeComponent } from './components/home/home.component';
+import { NuevoturnoComponent } from './components/nuevoturno/nuevoturno.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { UsuarioComponent } from './components/usuario/usuario.component';
-import { UsuarioService } from './services/usuario.service';
-import { UsuarioEspecificoComponent } from './components/usuario-especifico/usuario-especifico.component';
-import { UrlService } from './services/url.service';
-import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
-import { FormsModule } from '@angular/forms';
+import { BuscarturnoComponent } from './components/buscarturno/buscarturno.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContactoComponent,
-    EmpresaComponent,
-    ProductoComponent,
     HomeComponent,
+    NuevoturnoComponent,
     NavbarComponent,
-    UsuarioComponent,
-    UsuarioEspecificoComponent,
-    NuevoUsuarioComponent
+    BuscarturnoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     FormsModule
   ],
-  providers: [UsuarioService, UrlService],
-  
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

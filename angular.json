@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tp-desarrollo-web": {
+    "turnero2020": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tp-desarrollo-web",
+            "outputPath": "dist/turnero2020",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tp-desarrollo-web:build"
+            "browserTarget": "turnero2020:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tp-desarrollo-web:build:production"
+              "browserTarget": "turnero2020:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tp-desarrollo-web:build"
+            "browserTarget": "turnero2020:build"
           }
         },
         "test": {
@@ -110,19 +110,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tp-desarrollo-web:serve"
+            "devServerTarget": "turnero2020:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "tp-desarrollo-web:serve:production"
+              "devServerTarget": "turnero2020:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "tp-desarrollo-web",
-  "cli": {
-    "analytics": "e8ee6c72-175e-448a-83b0-24b4254ee305"
-  }
+    }},
+  "defaultProject": "turnero2020"
 }
