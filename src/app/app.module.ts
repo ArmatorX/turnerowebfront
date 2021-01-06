@@ -13,6 +13,8 @@ import { HomeComponent } from './components/home/home.component';
 import { NuevoturnoComponent } from './components/nuevoturno/nuevoturno.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BuscarturnoComponent } from './components/buscarturno/buscarturno.component';
+import { LoginComponent } from './components/login/login.component';
+import { ModificarturnoComponent } from './components/modificarturno/modificarturno.component';
 
 @NgModule({
   declarations: [
@@ -20,14 +22,17 @@ import { BuscarturnoComponent } from './components/buscarturno/buscarturno.compo
     HomeComponent,
     NuevoturnoComponent,
     NavbarComponent,
-    BuscarturnoComponent
+    BuscarturnoComponent,
+    LoginComponent,
+    ModificarturnoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [TurnoService, UrlService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

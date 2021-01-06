@@ -3,14 +3,14 @@ import { TurnoService, Turno } from 'src/app/services/turno.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Categoria, CategoriaService } from 'src/app/services/categoria.service';
-import { Subscriber } from 'rxjs';
+import { platformBrowserTesting } from '@angular/platform-browser/testing';
 
 @Component({
-  selector: 'app-nuevoturno',
-  templateUrl: './nuevoturno.component.html',
-  styleUrls: ['./nuevoturno.component.css']
+  selector: 'app-modificarturno',
+  templateUrl: './modificarturno.component.html',
+  styleUrls: ['./modificarturno.component.css']
 })
-export class NuevoturnoComponent implements OnInit {
+export class ModificarturnoComponent implements OnInit {
   txtNombreApellido : string;
   txtFecha : string;
   txtCategoria : number;
@@ -21,13 +21,16 @@ export class NuevoturnoComponent implements OnInit {
   turnoCreado : any;
   categorias : Categoria[] = [];
 
-  constructor(private servicioTurno : TurnoService, private servicioCategoria : CategoriaService, private formatFecha : DatePipe, private router : Router) { 
+  constructor(private servicioTurno : TurnoService, private servicioCategoria : CategoriaService, private router : Router, private formatFecha : DatePipe, private activeRt : ActivatedRoute)
+  {
     this.yaEnvioFormulario = false;
   }
 
   ngOnInit(): void {
+    const turnoId : string = this.activeRt.snapshot.paramMap.get("id");
+
     this.turnoCreado = {
-      id : null,
+      id : parseInt(turnoId),
       orden : null,
       fecha : null,
       hora : null,
@@ -42,16 +45,23 @@ export class NuevoturnoComponent implements OnInit {
     this.servicioCategoria.get().subscribe(respuesta => {
       this.categorias = respuesta;
     });
+
+    this.servicioTurno.getTurno(parseInt(turnoId)).subscribe(respuesta => {
+      this.txtNombreApellido = respuesta.nombreApellido;
+      this.txtCategoria = respuesta.categoria.id;
+      this.txtOrden = respuesta.orden;
+    });
   }
 
-  crearTurno() {
+  guardarCambios() {
     if (this.controlarCampos()) {
+      const turnoId : string = this.activeRt.snapshot.paramMap.get("id");
+    
       let categoriaSeleccionada : Categoria;
-
       categoriaSeleccionada = this.categorias.filter(c => c.id == this.txtCategoria)[0];
       
       let nuevoTurno : Turno = {
-        id : null,
+        id : parseInt(turnoId),
         orden : this.txtOrden,
         fecha : this.formatFecha.transform(this.txtFecha, "dd-MM-yyyy"),
         hora : `${this.txtHora}:${this.txtMinutos}:00`,
@@ -59,12 +69,13 @@ export class NuevoturnoComponent implements OnInit {
         categoria : categoriaSeleccionada
       };
       
-      this.servicioTurno.guardarTurno(nuevoTurno).subscribe(respuesta => {
+      this.servicioTurno.modificarTurno(parseInt(turnoId), nuevoTurno).subscribe(respuesta => {
         this.yaEnvioFormulario = true;
         this.turnoCreado = respuesta;
       });
+      
     }
-    else{
+    else {
       alert("Por favor llenar todos los campos.");
     }
   }
@@ -75,13 +86,19 @@ export class NuevoturnoComponent implements OnInit {
     if (this.txtOrden == undefined) {
       noHayErrores = false;
     } 
-    
-    if (this.txtFecha == undefined) {
-      noHayErrores = false;
-    }
 
     if (this.txtHora == undefined || this.txtMinutos == undefined)  {
       noHayErrores = false;
+    } else {
+      let fecha : Date = new Date(this.txtFecha);
+      fecha = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() + 1, parseInt(this.txtHora), parseInt(this.txtMinutos));
+      console.log(fecha);
+
+      if (this.txtFecha == undefined) {
+        noHayErrores = false;
+      } else if (fecha < new Date()) {
+        noHayErrores = false;
+      }
     }
 
     if (this.txtNombreApellido == undefined) {
@@ -100,12 +117,11 @@ export class NuevoturnoComponent implements OnInit {
   limpiarFiltros() {
     this.txtNombreApellido = undefined;
     this.txtFecha = undefined;
-    this.txtCategoria = undefined;
     this.txtHora = undefined;
     this.txtMinutos = undefined;
-    this.txtOrden = undefined;
+    this.txtCategoria = undefined;
   }
-  
+
   modificarTurno(t : Turno){
     this.servicioTurno.getTurno(t.id).subscribe(respuesta => {
       this.router.navigate(['/modificarturno', respuesta.id]);

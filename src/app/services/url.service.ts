@@ -4,10 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UrlService {
-  private urlBase : string = "https://reqres.in/api/";
+  private urlBaseTurno : string = "http://localhost:8080/turno";
+  private urlBaseCategoria : string = "http://localhost:8080/categoria";
 
-  getURLBase() : string {
-    return this.urlBase;
+  getURLBaseTurno() : string {
+    return this.urlBaseTurno;
+  }
+  getURLBaseCategoria() : string {
+    return this.urlBaseCategoria;
   }
   
   constructor() { }

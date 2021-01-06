@@ -1,11 +1,12 @@
 <h1>Busqueda de turnos</h1>
 <hr>
+<body>
 <div class="row">
     <div class="col">
         Nombre y Apellido:
     </div>
     <div class="col">
-        <input type="text" class="form control" placeholder="Texto" [(ngModel)]="txtBuscador">
+        <input type="text" class="form control" style='width:200px' placeholder="Texto" [(ngModel)]="txtBuscador">
     </div>
 </div>
 
@@ -14,7 +15,7 @@
         Fecha: 
     </div>
     <div class="col">
-        <input type="date" class="form control" placeholder="buscar" [(ngModel)]="txtFecha">
+        <input type="date" class="form control" style='width:200px' placeholder="buscar" [(ngModel)]="txtFecha">
     </div>
 </div>
 
@@ -23,9 +24,8 @@
         Categoria: 
     </div>
     <div class="col"> 
-        <select class="custom-select" [(ngModel)]="txtCategoria">
-            <option>Categoria 1</option>
-            <option>Categoria 2</option>
+        <select class="custom-select" style='width:200px' [(ngModel)]="txtCategoria">
+            <option value="{{c.id}}" *ngFor="let c of categorias">{{c.nombre}}</option>
         </select>
     </div>
 </div>
@@ -40,3 +40,31 @@
         </button>
     </div>
 </div>
+
+<div *ngIf="turnos.length" class="row">
+    <div class="card" *ngFor="let t of turnos" class="col-md-3">
+        <div [ngClass]="t.yaTranscurrio ? 'card-body text-white bg-dark mb-3' : 'card-body bg-light mb-3'">
+            <div class="card-header">{{t.nombreApellido}}</div>
+            <div class="card-body">
+                <p class="card-title">{{t.fecha}} {{t.hora}}</p>
+                <p class="card-text">Categoria: {{t.categoria.nombre}}</p>
+                <p class="card-text">Orden: {{t.orden}}</p>
+            </div>
+            <button [hidden]="t.yaTranscurrio" class="btn btn-primary" (click)="modificarTurno(t)">
+                Modificar
+            </button>
+            <button [hidden]="t.yaTranscurrio" class="btn btn-danger" (click)="borrarTurno(t)">
+                Borrar
+            </button>
+        </div>
+    </div>
+</div>
+
+    <div *ngIf="cantidadPaginas">
+        <button (click)="primeraPagina()" *ngIf="!esPrimerPagina"><<</button>
+        <button (click)="paginaAnterior()" *ngIf="!esPrimerPagina"><</button>
+        {{paginaActual + 1}} / {{cantidadPaginas}}
+        <button (click)="paginaSiguiente()" *ngIf="!esUltimaPagina">></button>
+        <button (click)="ultimaPagina()" *ngIf="!esUltimaPagina">>></button>
+    </div>
+</body>

@@ -24,7 +24,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "turnero2020"
+    }
+  },
+  "defaultProject": "turnero2020",
+  "cli": {
+    "analytics": "ac9171f7-8a04-4de3-8276-98a0ba98075e"
+  }
 }

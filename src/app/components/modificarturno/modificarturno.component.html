@@ -1,9 +1,9 @@
 <div *ngIf="!yaEnvioFormulario">
-    <h1>Crear Nuevo Turno</h1>
+    <h1>Modificar Turno</h1>
     <hr>
     <div class="row">
         <div class="col">
-            Nombre y Apellido:
+          Nombre y Apellido:
         </div>
         <div class="col">
             <input type="text" class="form control" placeholder="Texto" [(ngModel)]="txtNombreApellido">
@@ -15,14 +15,15 @@
             Fecha: 
         </div>
         <div class="col">
-            <input type="date" class="form control" placeholder="buscar" [(ngModel)]="txtFecha">
+            <input type="date" class="form control" [(ngModel)]="txtFecha">
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col">
             Hora: 
         </div>
+    
         <div class="col"> 
             <select class="custom-select" style='width:100px' [(ngModel)]="txtHora">
                 <option>09</option>
@@ -67,8 +68,8 @@
 
     <div class="row">
         <div class="col">
-            <button class="btn btn-success" (click)="crearTurno()">
-                Crear
+            <button class="btn btn-success" (click)="guardarCambios()">
+                Modificar
             </button> 
             <button class="btn btn-danger" (click)="limpiarFiltros()">
                 Limpiar
@@ -76,8 +77,9 @@
         </div>
     </div>
 </div>
+
 <div class="card" *ngIf="yaEnvioFormulario">
-    <h1>El turno se creó correctamente.</h1>
+    <h1>El turno se modificó correctamente.</h1>
     <div [ngClass]="turnoCreado.yaTranscurrio ? 'card-body text-white bg-dark mb-3' : 'card-body bg-light mb-3'">
         <div class="card-header">{{turnoCreado.nombreApellido}}</div>
         <div class="card-body">

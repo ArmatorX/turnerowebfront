@@ -1,1 +1,32 @@
-<p>home works!</p>
+<h1>Turnos del día</h1>
+
+<div *ngIf="turnosDelDia.length">
+    <div class="card-rows">
+        <div class="card" *ngFor="let t of turnosDelDia">
+            <div [ngClass]="t.yaTranscurrio ? 'card-body text-white bg-dark mb-3' : 'card-body bg-light mb-3'">
+                <div class="card-header">{{t.nombreApellido}}</div>
+                <div class="card-body">
+                    <p class="card-title">{{t.fecha}} {{t.hora}}</p>
+                    <p class="card-text">{{t.categoria.nombre}}</p>
+                    <p class="card-text">{{t.orden }}</p>
+                </div>
+                <button [hidden]="t.yaTranscurrio" class="btn btn-primary" (click)="modificarTurno(t)">
+                    Modificar
+                </button>
+                <button [hidden]="t.yaTranscurrio" class="btn btn-danger" (click)="borrarTurno(t)">
+                    Borrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button (click)="primeraPagina()" *ngIf="!esPrimerPagina"><<</button>
+        <button (click)="paginaAnterior()" *ngIf="!esPrimerPagina"><</button>
+        {{paginaActual + 1}} / {{cantidadPaginas}}
+        <button (click)="paginaSiguiente()" *ngIf="!esUltimaPagina">></button>
+        <button (click)="ultimaPagina()" *ngIf="!esUltimaPagina">>></button>
+    </div>
+</div>
+
+<p *ngIf="!turnosDelDia.length">No hay turnos para el día de hoy.</p>

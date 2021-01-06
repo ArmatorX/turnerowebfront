@@ -2,49 +2,49 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UrlService } from './url.service';
+import { Time } from '@angular/common';
+import { Categoria } from './categoria.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TurnoService {
   private turnos : Turno[] = [];
-  private URL_API : string = "https://reqres.in/api/users?page=1";
-  private URL_API_ID : string = "https://reqres.in/api/users/";
 
   constructor(private _http: HttpClient, private _url : UrlService) {
     console.log("ServicioTurno all systems GO!");
-   }
-
-   getTurnos() : Turno[] {
-    return this.turnos;
-   }
-
-  getTurno(id : number) : Observable<any> {
-   return this._http.get<Turno[]>(this._url.getURLBase() + 'turno/' + id)
   }
 
   get() : Observable<any> {
-   return this._http.get<Turno[]>(this._url.getURLBase() + 'turno?page=1');
+    return this._http.get<Turno[]>(this._url.getURLBaseTurno() + '?page=0&size=10&sort=fecha&sort=hora');
   }
 
-  getFiltrado(params : HttpParams) : Observable<any>{
-   return this._http.get<Turno[]>(this._url.getURLBase(), {params : params});
+  getTurno(id : number) : Observable<any> {
+   return this._http.get<Turno[]>(this._url.getURLBaseTurno() + '/' + id)
   }
 
-  getFiltradoPorFecha(txt : string) : Observable<any>{
-   return this._http.get<Turno[]>(this._url.getURLBase() + 'turno?fecha='+txt);
-  }
- 
-  guardarTurno(turno: any) : Observable<any>{
-   return this._http.post(this._url.getURLBase() + 'turno', turno);
+  getFiltrado(params : HttpParams) : Observable<any> {
+   return this._http.get<Turno[]>(this._url.getURLBaseTurno(), {params : params});
   }
 
+  guardarTurno(turno: Turno) : Observable<any> {
+   return this._http.post<Turno>(this._url.getURLBaseTurno(), turno);
+  }
+
+  borrarTurno(id: number)  : Observable<any> {
+    return this._http.delete<Turno>(this._url.getURLBaseTurno() + '/' + id);
+  }
+
+  modificarTurno(id: number, turno : Turno) : Observable<any> {
+    return this._http.put<Turno>(this._url.getURLBaseTurno() + '/' + id, turno);
+   }
 }
 
 export interface Turno {
   id? : number;
-  orden? : string;
-  fecha: Date;
+  orden : number;
+  fecha : string;
+  hora : string;
   nombreApellido : string;
-  Categoria : string;
+  categoria : Categoria;
 }
